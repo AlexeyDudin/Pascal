@@ -1,0 +1,17 @@
+UNIT DateIO;
+
+INTERFACE
+
+TYPE MONTH=(NoMonth, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC);
+
+PROCEDURE SortMonth(VAR FirstMonth, SecondMonth: MONTH; VAR Result:CHAR);
+
+IMPLEMENTATION
+
+PROCEDURE SortMonth(VAR FirstMonth, SecondMonth: MONTH; VAR Result:CHAR);
+BEGIN
+END;
+
+
+BEGIN
+END.

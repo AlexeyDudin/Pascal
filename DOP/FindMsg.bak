@@ -1,0 +1,123 @@
+UNIT FindMsg;
+
+INTERFACE
+
+CONST
+  MinArray = 1;
+  MaxArray = 4;
+
+TYPE
+  MsgType = (NoMessage, Land, Sea, Air);
+
+VAR
+  ArrayType: MinArray .. MaxArray;
+
+FUNCTION FindMessageIn(VAR F: TEXT): MsgType;
+
+IMPLEMENTATION
+
+VAR
+  Window: ARRAY[MinArray .. MaxArray] OF CHAR;
+
+PROCEDURE InitWindow;
+VAR
+  I: MinArray .. MaxArray;
+BEGIN
+  FOR I := MinArray TO MaxArray
+  DO
+    Window[I] := ' ';
+END;
+
+PROCEDURE MoveWindow(VAR F: TEXT);
+VAR
+  I: INTEGER;
+BEGIN
+  FOR I := MinArray TO MaxArray - 1
+  DO
+    BEGIN
+      Window[I] := Window[I + 1];
+    END;
+  READ(F, Window[MaxArray])
+END;
+
+FUNCTION Check: MsgType;
+VAR
+  I: MinArray .. MaxArray;
+BEGIN
+  Check := NoMessage;
+  FOR I := MinArray TO MaxArray
+  DO
+    BEGIN
+      IF ((Window[I] = 'L') OR (Window[I] = 'l'))
+      THEN
+        BEGIN
+          IF (I <= (MaxArray - 3)) //Проверка, не выходим ли за диапазон
+          THEN
+            IF ((Window[I + 1] = 'A') OR (Window[I + 1] = 'a'))
+            THEN
+              IF ((Window[I + 2] = 'N') OR (Window[I + 2] = 'n'))
+              THEN
+                IF ((Window[I + 3] = 'D') OR (Window[I + 3] = 'd'))
+                THEN
+                  BEGIN
+                    Check := Land;
+                    BREAK
+                  END
+        END
+      ELSE
+        IF ((Window[I] = 'A') OR (Window[I] = 'a'))
+        THEN
+          BEGIN
+            IF (I <= (MaxArray - 2)) //Проверка, не выходим ли за диапазон?
+            THEN
+              IF ((Window[I + 1] = 'I') OR (Window[I + 1] = 'i'))
+              THEN
+                IF ((Window[I + 2] = 'R') OR (Window[I + 2] = 'r'))
+                THEN
+                  BEGIN
+                    Check := Air;
+                    BREAK
+                  END
+          END
+        ELSE
+          IF ((Window[I] = 'S') OR (Window[I] = 's'))
+          THEN
+            BEGIN
+              IF (I <= (MaxArray - 2)) //Проверка, не выходим ли за диапазон?
+              THEN
+                IF ((Window[I + 1] = 'E') OR (Window[I + 1] = 'e'))
+                THEN
+                  IF ((Window[I + 2] = 'A') OR (Window[I + 2] = 'a'))
+                  THEN
+                    BEGIN
+                      Check := Sea;
+                      BREAK
+                    END
+            END
+    END
+END;
+
+FUNCTION FindMessageIn(VAR F: TEXT): MsgType;
+VAR
+  CheckResult: MsgType;
+BEGIN
+  FindMessageIn := NoMessage;
+
+  InitWindow;
+
+  WHILE NOT EOLN(F)
+  DO
+    BEGIN
+      MoveWindow(F);
+      CheckResult := Check;
+      IF CheckResult <> NoMessage
+      THEN
+        BEGIN
+          FindMessageIn := CheckResult;
+          BREAK
+        END
+    END
+END;
+
+BEGIN
+END.

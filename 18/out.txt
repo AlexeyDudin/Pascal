@@ -1,0 +1,8 @@
+Student averages:
+ivanov : 4
+petrov : 5
+sidorov : 5
+dudin : 5
+
+Class average:
+4.3

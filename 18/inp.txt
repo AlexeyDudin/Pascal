@@ -1,0 +1,4 @@
+ivanov 3 4 4 3
+petrov 4 4 5 5
+sidorov 4 5 4 5
+dudin 5 5 5 5

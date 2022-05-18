@@ -1,0 +1,6 @@
+PROGRAM SarahRevere(INPUT, OUTPUT);
+USES Sarah;
+
+BEGIN
+  RunSarahRevere;
+END.

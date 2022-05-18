@@ -1,0 +1,19 @@
+PROGRAM RCopyProgram(INPUT, OUTPUT);
+
+PROCEDURE RCopy(VAR F1: TEXT; VAR F2: TEXT);
+VAR
+  Ch: CHAR;
+BEGIN
+  WHILE NOT EOLN(F1)
+  DO
+    BEGIN
+      READ(F1, Ch);
+      WRITE(F2, Ch);
+      RCopy(F1, F2)
+    END
+END;
+
+BEGIN
+  RCOpy(INPUT, OUTPUT);
+  WRITELN
+END.
