@@ -79,12 +79,12 @@ BEGIN
           NewNode^.Count := 1;
           NewNode^.Left := NIL;
           NewNode^.Rigth := NIL;
-          InsertWordInTree := NewNode
+          InsertWordInTree := NewNode;
         END
       ELSE
         BEGIN
-          WRITELN('ОШИБКА! Превышено количество нод');
-          InsertWordInTree := NIL
+          WRITE('ОШИБКА! Превышено количество нод');
+          InsertWordInTree := NIL;
         END
     END
   ELSE

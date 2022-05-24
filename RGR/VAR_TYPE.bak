@@ -4,7 +4,7 @@ INTERFACE
 
 CONST
   StartChar = '#';
-  MaxTreeNodes = 30000;
+  MaxTreeNodes = 50000;
   MaxStringSize = 50;
   CompatibleChars: STRING[69] = 'abcdefghijklmnopqrstuvwxyz ¡¢£¤¥¦§¨©ª«¬­®¯àáâãäåæçèéêëìíîï-0123456789';
   UpperChars: STRING[58] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ€‚ƒ„…†‡ˆ‰Š‹Œ‘’“”•–—˜™š›œŸ';
