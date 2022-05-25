@@ -1,6 +1,0 @@
-PROGRAM CountWord(INPUT, OUTPUT);
-USES TextScan;
-
-BEGIN
-  CountNumberOfWordsFrom(INPUT, OUTPUT)
-END.
