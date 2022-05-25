@@ -4,9 +4,9 @@ INTERFACE
 
 USES VAR_TYPE;
 
-PROCEDURE AddWordInTree(AddedWord: MyString);
+PROCEDURE AddWordInStorage(AddedWord: MyString);
 {PROCEDURE InitVars;                 }
-PROCEDURE PrintTree(VAR OutputFile: TEXT);
+PROCEDURE PrintStorage(VAR OutputFile: TEXT);
 
 IMPLEMENTATION
 
@@ -35,7 +35,7 @@ BEGIN
     END
 END;
 
-PROCEDURE PrintTree(VAR OutputFile: TEXT);
+PROCEDURE PrintStorage(VAR OutputFile: TEXT);
 BEGIN
   RecourceTreeView(Root, OutputFile)
 END;
@@ -108,7 +108,7 @@ BEGIN
     END
 END;
 
-PROCEDURE AddWordInTree(AddedWord: MyString);
+PROCEDURE AddWordInStorage(AddedWord: MyString);
 VAR
   CurrNode: TreeNodePtr;
 BEGIN

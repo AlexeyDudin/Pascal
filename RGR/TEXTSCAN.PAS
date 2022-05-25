@@ -2,7 +2,7 @@ UNIT TextScan;
 
 INTERFACE
 
-PROCEDURE RunScanText(VAR InputFile, OutputFile: TEXT);
+PROCEDURE CountNumberOfWordsFrom(VAR InputFile, OutputFile: TEXT);
 
 IMPLEMENTATION
 USES StWorker, VAR_TYPE, States, Tree;
@@ -11,7 +11,7 @@ VAR
   State: StatesType;
   LastReadedChar: CHAR;
 
-PROCEDURE InitializeVariables;
+PROCEDURE InitializeVariables(VAR LastReadedChar: CHAR);
 BEGIN
   LastReadedChar := StartChar; {//TODO }
   SetStateToStart;
@@ -54,19 +54,24 @@ BEGIN
   FindWord := Result
 END;
 
-PROCEDURE RunScanText(VAR InputFile, OutputFile: TEXT);
-VAR
-  ReturnedWord: MyString;
+PROCEDURE HandleWord(RecievedWord: MyString);
 BEGIN
-  InitializeVariables;
+  IF (RecievedWord <> '')
+  THEN
+    AddWordInStorage(RecievedWord)
+END;
+
+PROCEDURE CountNumberOfWordsFrom(VAR InputFile, OutputFile: TEXT);
+VAR
+  RecievedWord: MyString;
+BEGIN
+  InitializeVariables(LastReadedChar);
   REPEAT
     SkipSpaces(InputFile, LastReadedChar);
-    ReturnedWord := FindWord(InputFile, LastReadedChar);
-    IF (ReturnedWord <> '')
-    THEN
-      AddWordInTree(ReturnedWord)
+    RecievedWord := FindWord(InputFile, LastReadedChar);
+    HandleWord(RecievedWord)
   UNTIL EOF(InputFile);
-  PrintTree(OutputFile)
+  PrintStorage(OutputFile)
 END;
 
 BEGIN

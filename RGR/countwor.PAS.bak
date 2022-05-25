@@ -1,4 +1,4 @@
-PROGRAM CountWords(INPUT, OUTPUT);
+PROGRAM CountWord(INPUT, OUTPUT);
 USES TextScan;
 
 BEGIN

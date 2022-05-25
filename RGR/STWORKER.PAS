@@ -14,60 +14,71 @@ VAR
   I: INTEGER;
 BEGIN
   CharCompatible := FALSE;
-  FOR I := 1 TO LENGTH(CompatibleChars)
+  I := 1;
+  WHILE (I <= LENGTH(CompatibleChars)) AND (NOT CharCompatible)
   DO
-    IF (Ch = CompatibleChars[I])
-    THEN
-      BEGIN
-        CharCompatible := TRUE;
-        BREAK
-      END
+    BEGIN
+      IF (Ch = CompatibleChars[I])
+      THEN
+          CharCompatible := TRUE;
+      I := I + 1
+    END
 END;
 
 FUNCTION TryChangeChar(Ch: CHAR): CHAR;
 VAR
   I: INTEGER;
+  IsFindChar: BOOLEAN;
 BEGIN
   TryChangeChar := Ch;
   IF (Ch = AdditionChar1) OR (Ch = AdditionChar2)
   THEN
     TryChangeChar := '¥'
   ELSE
-    FOR I := 1 TO LENGTH(UpperChars)
-    DO
-      IF (Ch = UpperChars[I])
-      THEN
+    BEGIN
+      I := 1;
+      IsFindChar := FALSE;
+      WHILE (I <= LENGTH(UpperChars)) AND (NOT IsFindChar)
+      DO
         BEGIN
-          TryChangeChar := CompatibleChars[I];
-          BREAK
+          IF (Ch = UpperChars[I])
+          THEN
+            BEGIN
+              TryChangeChar := CompatibleChars[I];
+              IsFindChar := TRUE
+            END;
+          I := I + 1
         END
+    END
 END;
 
 FUNCTION IsFirstLowerSecond(First, Second: MyString): BOOLEAN;
 VAR
-  I, J: INTEGER;
+  I: INTEGER;
+  IsFound: BOOLEAN;
 BEGIN
+  IsFound := FALSE;
   IsFirstLowerSecond := TRUE;
-  FOR I := 1 TO LENGTH(First)
+  I := 1;
+  WHILE (I <= LENGTH(First)) AND (NOT IsFound)
   DO
     BEGIN
       IF I > LENGTH(Second)
       THEN
         BEGIN
           IsFirstLowerSecond := FALSE;
-          BREAK
+          IsFound := TRUE
         END;
       IF First[I] < Second[I]
       THEN
-        BEGIN
-          BREAK
-        END;
+        IsFound := TRUE;
       IF First[I] > Second[I]
       THEN
         BEGIN
           IsFirstLowerSecond := FALSE;
-          BREAK;
-        END
+          IsFound := TRUE
+        END;
+      I := I + 1
     END
 END;
 
