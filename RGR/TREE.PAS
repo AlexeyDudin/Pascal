@@ -5,7 +5,6 @@ INTERFACE
 USES VAR_TYPE;
 
 PROCEDURE AddWordInStorage(AddedWord: MyString);
-{PROCEDURE InitVars;                 }
 PROCEDURE PrintStorage(VAR OutputFile: TEXT);
 
 IMPLEMENTATION
@@ -31,7 +30,7 @@ BEGIN
     BEGIN
       RecourceTreeView(ParentNode^.Left, OutputFile);
       WRITELN(OutputFile, ParentNode^.Name, ' ', ParentNode^.Count);
-      RecourceTreeView(ParentNode^.Rigth, OutputFile);
+      RecourceTreeView(ParentNode^.Rigth, OutputFile)
     END
 END;
 
@@ -127,5 +126,5 @@ END;
 
 BEGIN
   Root := NIL;
-  NodeCount := 0;
+  NodeCount := 0
 END.
