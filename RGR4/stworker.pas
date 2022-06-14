@@ -126,21 +126,6 @@ BEGIN
   FOR I := 1 TO Length(AnalizedWord)
   DO
     BEGIN
-      IF (IsCharInVowels(AnalizedWord[I]))
-      THEN
-        BEGIN
-          IF (WriteInRv)
-          THEN
-            IF (WriteInR1)
-            THEN
-              IF (NOT WriteInR2)
-              THEN
-                WriteInR2 := TRUE
-            ELSE
-              WriteInR1 := TRUE
-          ELSE
-            WriteInRv := TRUE
-        END;
       IF (WriteInRv)
       THEN
         Rv := Rv + AnalizedWord[I];
@@ -149,7 +134,27 @@ BEGIN
         R1 := R1 + AnalizedWord[I];
       IF (WriteInR2)
       THEN
-        R2 := R2 + AnalizedWord[I]
+        R2 := R2 + AnalizedWord[I];
+
+      IF (IsCharInVowels(AnalizedWord[I]))
+      THEN
+        BEGIN
+          IF (WriteInRv)
+          THEN
+            BEGIN
+              IF (WriteInR1)
+              THEN
+                BEGIN
+                  IF (NOT WriteInR2)
+                  THEN
+                    WriteInR2 := TRUE
+                END
+              ELSE
+                WriteInR1 := TRUE
+            END
+          ELSE
+            WriteInRv := TRUE
+        END
     END
 END;
 

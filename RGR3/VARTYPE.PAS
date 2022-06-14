@@ -12,6 +12,7 @@ CONST
   AdditionChar2 = 'с';
   ResultFileName: STRING = 'result.txt';
   TempFileName: STRING = 'temp.tmp';
+  Vowels: string[9] = ' ҐЁ®глноп';
 
 TYPE
   MyString = STRING[MaxStringSize];
