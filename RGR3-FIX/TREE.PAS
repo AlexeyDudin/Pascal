@@ -7,9 +7,9 @@ USES VarType;
 PROCEDURE AddWordInStorage(AddedWord: MyString);
 PROCEDURE PrintStorage(VAR OutputFile: TEXT);
 PROCEDURE AddResidueTreeInFile;
-FUNCTION ReadNodeFromFile(VAR FileOfNodes: TEXT): TreeNodePtr;
+{FUNCTION ReadNodeFromFile(VAR FileOfNodes: TEXT): WordStructPtr;}
 
-PROCEDURE RecourceTreeView(ParentNode: TreeNodePtr; VAR OutputFile: TEXT);
+PROCEDURE RecourceTreeView(ParentNode: TreeNodePtr; VAR OutputFile: TEXT; VAR Counter: INTEGER);
 PROCEDURE InsertWordInTree(VAR Parent: TreeNodePtr; AddedWord: MyString);
 
 IMPLEMENTATION
@@ -20,17 +20,20 @@ VAR
   Root: TreeNodePtr;
   NodeCount: INTEGER;
 
-PROCEDURE RecourceTreeView(ParentNode: TreeNodePtr; VAR OutputFile: TEXT);
+PROCEDURE RecourceTreeView(ParentNode: TreeNodePtr; VAR OutputFile: TEXT; VAR Counter: INTEGER);
 BEGIN
   IF (ParentNode <> NIL)
   THEN
     BEGIN
-      RecourceTreeView(ParentNode^.Left, OutputFile);
+      RecourceTreeView(ParentNode^.Left, OutputFile, Counter);
       WRITE(OutputFile, ParentNode^.Name);
       IF (ParentNode^.Rigth <> NIL)
       THEN
-        WRITE(OutputFile, ', ');
-      RecourceTreeView(ParentNode^.Rigth, OutputFile)
+        BEGIN
+          WRITE(OutputFile, ', ');
+          Counter := Counter + ParentNode^.Count;
+        END;
+      RecourceTreeView(ParentNode^.Rigth, OutputFile, Counter)
     END
 END;
 
@@ -131,7 +134,8 @@ BEGIN
         END
       ELSE
         BEGIN
-          WHILE ((WordInTree <> NIL) AND ((IsFirstLowerSecond(WordInTree^.Name, ReadedNode^.Name) AND (WordInTree^.Name <> ReadedNode^.Name))))
+          WHILE ((WordInTree <> NIL) AND ((IsFirstLowerSecond(WordInTree^.Name, ReadedNode^.Name) AND
+                (WordInTree^.Name <> ReadedNode^.Name))))
           DO
             BEGIN
               WriteNodeInFile(TmpFile, WordInTree);
@@ -228,15 +232,6 @@ BEGIN
   IF (Parent = NIL)
   THEN
     BEGIN
-{      IF NodeCount >= MaxTreeNodes
-      THEN
-        BEGIN
-          FlashTreeInFile(Root);
-          New(Root);
-          Parent := Root
-        END
-      ELSE}
-
       New(Parent);
       NodeCount := NodeCount + 1;
       Parent^.Name := AddedWord;
